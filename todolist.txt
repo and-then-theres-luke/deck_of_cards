@@ -1,0 +1,3 @@
+Let's talk about what we want to build in each class
+
+The player needs to be CREATED, then 
