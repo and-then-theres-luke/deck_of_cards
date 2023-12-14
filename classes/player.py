@@ -12,7 +12,7 @@ class Player():
         return self
     
     def draw_card(self,deck):
-        if len(deck.cards) >= 0:
+        if len(deck.cards) > 0:
             new_card = deck.cards[0]
             self.hand.append(new_card)
             deck.cards.pop(0)

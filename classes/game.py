@@ -27,8 +27,9 @@ class Game:
             if self.turn_counter == True:
                 print(f'''{player2.name}'s Turn!''')
                 self.is_game_over = self.player_turn(player2, player1, deck)
-        
-        
+        if player1.points > player2.points:
+            print(f'''{player1.name} won! They are a genius.''')
+            
 
     def switch_turn(self):
         if self.turn_counter == False:
@@ -41,11 +42,12 @@ class Game:
         card_found = False
         player.show_hand()
         selection_index = input("Which card are you looking to match?")
+        print(selection_index)
         selection_index = int(selection_index)
         selected_card = player.hand[selection_index]
         print(f'''You have selected {selected_card.string_val} of {selected_card.suit}''')
-        hand_length = len(opponent.hand)
-        for card in range(0,hand_length-1):
+        hand_length = len(opponent.hand)-1
+        for card in range(0,hand_length):
             if selected_card.point_val == opponent.hand[card].point_val:
                 card_found = True
                 print(f'''Good guess! {opponent.name} has one of those!''')
@@ -57,10 +59,21 @@ class Game:
                 print(f'''Checking {player.name}'s hand for matches...''')
                 player.match_check()
                 if len(player.hand) <= 0:
-                    self.is_game_over = True
+                    return False
                 self.switch_turn()
         if card_found == False:
             print("Sorry, none found.")
             player.draw_card(deck)
             player.match_check()
-            self.switch_turn()
+        if len(player.hand) <= 0:
+            return True
+        self.switch_turn()
+    
+    @staticmethod
+    def continue_or_exit():
+        print("Would you like to play another game? y / n")
+        keep_playing = input("")
+        if keep_playing == "y":
+            return True
+        else:
+            return False
